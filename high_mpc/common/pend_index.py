@@ -2,7 +2,7 @@
 kTheta  = 0
 kDotTheta = 1
 
-#
+# state index
 kPosX = 0
 kPosY = 1
 kPosZ = 2

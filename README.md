@@ -8,7 +8,7 @@ The first control command is applied to the system, after which the optimization
 is solved again in the next state.
 Eventually, our algorithm manage to control the quadrotor to pass through the center of
 the swinging gate, where we randomly initialized the state of the system.
-Please find a list of demonstrations in here. 
+Please find a list of demonstrations in [here](docs/gifs/README.md). 
 
 ![High_MPC_Demo](docs/gifs/high_mpc_trail2.gif)
 
@@ -33,5 +33,20 @@ Add the repo path to your PYTHONPATH by adding the following to your ~/.bashrc
 export PYTHONPATH=${PYTHONPATH}:/path/to/high_mpc
 ```
 
-### Run Examples
+### Run 
+
+Standard MPC
+
+```
+```
+
+Learning a High-Level Policy
+
+```
+```
+
+Learning a Deep High-Level Policy
+
+```
+```
 

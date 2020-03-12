@@ -1,8 +1,5 @@
 """
-MPC which requires high-level decision variables from a high-level policy
-"""
-"""
-Quadrotor control via a Nonlinear MPC
+High-MPC which requires decision variables from a high-level policy
 """
 import casadi as ca
 import numpy as np
@@ -41,30 +38,27 @@ class NMPC_v1(object):
         # action dimensions (c_thrust, wx, wy, wz)
         self._u_dim = 4
         
-        #        
+        # cost matrix for tracking the goal point
         self._Q_goal = np.diag([
-            100, 100, 100, # delta_x, delta_y, delta_z
+            100, 100, 100,  # delta_x, delta_y, delta_z
             10, 10, 10, 10, # delta_qw, delta_qx, delta_qy, delta_qz
             10, 10, 10]) 
-        #
+
+        # cost matrix for tracking the pendulum motion
         self._Q_pen = np.diag([
             0, 100, 100,  # delta_x, delta_y, delta_z
             10, 10, 10, 10, # delta_qw, delta_qx, delta_qy, delta_qz
             0, 10, 10]) # delta_vx, delta_vy, delta_vz
-        # 
+        
+        # cost matrix for the action
         self._Q_u = np.diag([0.1, 0.1, 0.1, 0.1]) # T, wx, wy, wz
 
+        # initila 
         self._quad_s0 = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self._quad_u0 = [9.81, 0.0, 0.0, 0.0]
 
-        # casadi just-in-time (jit) compilation type (0, 1, 2, 3)
-        # 0 - no just-in-time compilation
-        # 1 - jit without optimization
-        # 2 - jit with O3 optimization (slow during compilation)
-        # 3 - jit with Os optimization (slow during compilation)
         self._initDynamics()
         #
-        
 
     def _initDynamics(self,):
         # # # # # # # # # # # # # # # # # # # 
@@ -125,6 +119,7 @@ class NMPC_v1(object):
         f_cost_goal = ca.Function('cost_goal', [Delta_s], [cost_goal])
         f_cost_gap = ca.Function('cost_gap', [Delta_p], [cost_gap])
         f_cost_u = ca.Function('cost_u', [Delta_u], [cost_u])
+        
         #
         self.f = ca.Function('f', [self._x, self._u], [x_dot], ['x', 'u'], ['ode'])
                 
