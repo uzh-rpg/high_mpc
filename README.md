@@ -7,11 +7,10 @@ our high-mpc predicts a sequence control commands and states for the quadrotor.
 The first control command is applied to the system, after which the optimization problem
 is solved again in the next state.
 Eventually, our algorithm manage to control the quadrotor to pass through the center of
-the swinging gate, where we randomly initialized the state of the system. 
+the swinging gate, where we randomly initialized the state of the system.
+Please find a list of demonstrations in here. 
 
-
-![High_MPC_Demo](docs/high_mpc_0.gif)
-
+![High_MPC_Demo](docs/gifs/high_mpc_trail2.gif)
 
 ### Installation 
 
