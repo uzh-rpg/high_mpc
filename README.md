@@ -6,13 +6,27 @@ Based on the decision variable, the (perfect) penulum dynamics, and the quadroto
 our high-mpc predicts a sequence control commands and states for the quadrotor.
 The first control command is applied to the system, after which the optimization problem
 is solved again in the next state.
+Eventually, our algorithm manage to control the quadrotor to pass through the center of
+the swinging gate, where we randomly initialized the state of the system. 
 
 
 ### 
 
-Dependencies:
+Clone the repo
 
-* numpy 1.17.3
-* casadi 3.5.1
-* matplotlib 3.1.1
-* tensorflow 2.1.0
+```
+git clone git@github.com:uzh-rpg/high_mpc.git
+```
+
+Installation Dependencies:
+
+```
+cd high_mpc
+pip install -r requirements.txt
+```
+
+Add the repo path to your PYTHONPATH by adding the following to your ~/.bashrc
+
+```
+export PYTHONPATH=${PYTHONPATH}:/path/to/high_mpc
+```
