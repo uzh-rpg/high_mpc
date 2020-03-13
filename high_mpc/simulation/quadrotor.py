@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 #
-from high_mpc.common.util import *
+from high_mpc.common.quad_index import *
 
 #
 class Quadrotor_v0(object):

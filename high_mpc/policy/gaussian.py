@@ -27,7 +27,7 @@ class GaussianPolicy_v0(object):
         
     def fit(self, Weights, Actions):
         """
-        Update policy parameters via Weighted Maximum Likelyhood
+        Update policy parameters via Reward-Weighted Maximum Likelyhood
         """
         self.mu = Weights.dot(Actions)/ np.sum(Weights+1e-8)
         Z = (np.sum(Weights)**2 - np.sum(Weights**2)) / np.sum(Weights)
@@ -93,7 +93,6 @@ def run_wml(env, logger, save_dir, n_samples, max_iter, sigma0, beta0=3.0):
         np.savez(sample_path, iter=i_iter, rew=np.mean(rewards), \
             mu=pi.mu, scale=pi.scale, sample_act=Actions, \
             sample_rew=rewards)
-
 
         #
         pi.fit(Weights, Actions)        

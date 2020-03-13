@@ -7,12 +7,15 @@ import time
 from os import system
 #
 from high_mpc.common.quad_index import *
+
 #
-class NMPC_v1(object):
-    #
-    def __init__(self, T, dt, jit=0, so_path='./nmpc.so'):
+class High_MPC(object):
+    """
+    MPC with high-level decision variables
+    """
+    def __init__(self, T, dt, so_path='./nmpc.so'):
         """
-        Creat a Quadrotor environment with an MPC as embeded controller.
+        Nonlinear MPC for quadrotor control
         """
         self.so_path = so_path
 
@@ -38,27 +41,25 @@ class NMPC_v1(object):
         # action dimensions (c_thrust, wx, wy, wz)
         self._u_dim = 4
         
-        # cost matrix for tracking the goal point
+        #        
         self._Q_goal = np.diag([
-            100, 100, 100,  # delta_x, delta_y, delta_z
+            100, 100, 100, # delta_x, delta_y, delta_z
             10, 10, 10, 10, # delta_qw, delta_qx, delta_qy, delta_qz
             10, 10, 10]) 
-
-        # cost matrix for tracking the pendulum motion
+        #
         self._Q_pen = np.diag([
             0, 100, 100,  # delta_x, delta_y, delta_z
             10, 10, 10, 10, # delta_qw, delta_qx, delta_qy, delta_qz
             0, 10, 10]) # delta_vx, delta_vy, delta_vz
-        
-        # cost matrix for the action
+        # 
         self._Q_u = np.diag([0.1, 0.1, 0.1, 0.1]) # T, wx, wy, wz
 
-        # initila 
+        # initial state and control action
         self._quad_s0 = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self._quad_u0 = [9.81, 0.0, 0.0, 0.0]
 
-        self._initDynamics()
         #
+        self._initDynamics()
 
     def _initDynamics(self,):
         # # # # # # # # # # # # # # # # # # # 
@@ -76,7 +77,7 @@ class NMPC_v1(object):
         self._x = ca.vertcat(px, py, pz, qw, qx, qy, qz, vx, vy, vz) 
 
         # # # # # # # # # # # # # # # # # # # 
-        # --------- Ouput Command ------------
+        # --------- Control Command ------------
         # # # # # # # # # # # # # # # # # # #
 
         thrust, wx, wy, wz = ca.SX.sym('thrust'), ca.SX.sym('wx'), \
@@ -102,7 +103,13 @@ class NMPC_v1(object):
             (qw*qw - qx*qx -qy*qy + qz*qz) * thrust - self._gz
             # (1 - 2*qx*qx - 2*qy*qy) * thrust - self._gz
         )
-        
+        #
+        self.f = ca.Function('f', [self._x, self._u], [x_dot], ['x', 'u'], ['ode'])        
+        # # Fold
+        F = self.sys_dynamics(self._dt)
+        #
+        fMap = F.map(self._N, "openmp") # parallel 
+
         # # # # # # # # # # # # # # # 
         # ---- loss function --------
         # # # # # # # # # # # # # # # 
@@ -115,31 +122,23 @@ class NMPC_v1(object):
         cost_goal = Delta_s.T @ self._Q_goal @ Delta_s 
         cost_gap = Delta_p.T @ self._Q_pen @ Delta_p 
         cost_u = Delta_u.T @ self._Q_u @ Delta_u
+
         #
         f_cost_goal = ca.Function('cost_goal', [Delta_s], [cost_goal])
         f_cost_gap = ca.Function('cost_gap', [Delta_p], [cost_gap])
         f_cost_u = ca.Function('cost_u', [Delta_u], [cost_u])
-        
-        #
-        self.f = ca.Function('f', [self._x, self._u], [x_dot], ['x', 'u'], ['ode'])
-                
-        # # Fold
-        F = self.sys_dynamics(self._dt)
-        
-        #
-        fMap = F.map(self._N, "openmp") # parallel 
 
         
         # # # # # # # # # # # # # # # # # # # # 
         # # ---- Non-linear Optimization -----
         # # # # # # # # # # # # # # # # # # # #
-        self.nlp_w = []     # nlp variables
-        self.nlp_w0 = []    # initial guess of nlp variables
+        self.nlp_w = []       # nlp variables
+        self.nlp_w0 = []      # initial guess of nlp variables
         self.lbw = []         # lower bound of the variables, lbw <= nlp_x
         self.ubw = []         # upper bound of the variables, nlp_x <= ubw
         #
-        self.mpc_obj = 0     # objective 
-        self.nlp_g = []           # constraint functions
+        self.mpc_obj = 0      # objective 
+        self.nlp_g = []       # constraint functions
         self.lbg = []         # lower bound of constrait functions, lbg < g
         self.ubg = []         # upper bound of constrait functions, g < ubg
 
@@ -169,7 +168,6 @@ class NMPC_v1(object):
         self.lbg += g_min
         self.ubg += g_max
         
-        # TODO: parallelization
         for k in range(self._N):
             #
             self.nlp_w += [U[:, k]]
@@ -177,17 +175,19 @@ class NMPC_v1(object):
             self.lbw += u_min
             self.ubw += u_max
         
-            # Integrate till the end of the interval
-            # TODO: check again
-            # I know, it is a bit messy here. 
-            
             # retrieve time constant
             idx_k = self._s_dim+self._s_dim+(self._s_dim+3)*(k)
             idx_k_end = self._s_dim+(self._s_dim+3)*(k+1)
             time_k = P[ idx_k : idx_k_end]
-            # compute exponetial weights
-            weight = ca.exp(- time_k[2] *(time_k[0]-time_k[1])**2 ) 
-            # weight = 1.0 if weight >= 0.8 else weight   
+            
+            # # # # # # # # # # # # # # # # # # # # # # # # 
+            # - compute exponetial weights
+            # - time_k[2] defines the temporal spread of the weight
+            # - time_k[0] defines the current time 
+            # - time_k[1] defines the best traversal time, which is selected via 
+            #              a high-level policy / a deep high-level policy
+            # # # # # # # # # # # # # # # # # # # # # # # # 
+            weight = ca.exp(- time_k[2] * (time_k[0]-time_k[1])**2 ) 
 
             # cost for tracking the goal position
             cost_goal_k, cost_gap_k = 0, 0
@@ -198,16 +198,12 @@ class NMPC_v1(object):
                 # cost for tracking the moving gap
                 delta_p_k = (X[:, k+1] - P[self._s_dim+(self._s_dim+3)*k : \
                     self._s_dim+(self._s_dim+3)*(k+1)-3]) 
-                cost_gap_k = f_cost_gap(delta_p_k)
+                cost_gap_k = f_cost_gap(delta_p_k) * weight
             
-            # vx
-            # delta_p_v = 10 * (X[kVelX, k+1] - P[kVelX+(self._s_dim+3)*k]) * \
-            #     (X[kVelX, k+1] - P[kVelX+(self._s_dim+3)*k]) * (1-weight)
-            #
             delta_u_k = U[:, k]-[self._gz, 0, 0, 0]
             cost_u_k = f_cost_u(delta_u_k)
 
-            self.mpc_obj = self.mpc_obj + cost_goal_k + cost_u_k +  cost_gap_k # + delta_p_v
+            self.mpc_obj = self.mpc_obj + cost_goal_k + cost_u_k +  cost_gap_k 
 
             # New NLP variable for state at end of interval
             self.nlp_w += [X[:, k+1]]
@@ -229,6 +225,7 @@ class NMPC_v1(object):
         # # # # # # # # # # # # # # # # # # # 
         # -- qpoases            
         # # # # # # # # # # # # # # # # # # # 
+
         # nlp_options ={
         #     "qpsol": "qpoases", \
         #     "hessian_approximation": "gauss-newton", \
@@ -253,21 +250,20 @@ class NMPC_v1(object):
             # "ipopt.acceptable_tol": 1e-4,
             "ipopt.max_iter": 100,
             # "ipopt.warm_start_init_point": "yes",
-            "ipopt.print_level":0, 
+            "ipopt.print_level": 0, 
             "print_time": False
         }
         #
         self.solver = ca.nlpsol("solver", "ipopt", nlp_dict, ipopt_options)
-        # jit compile for speep
+        # jit compile for speed up
         # print("Generating shared library........")
-        # cname = self.solver.generate_dependencies("nmpc_v1.c")  
-        # system('gcc -fPIC -shared -Os ' + cname + ' -o ' + "nmpc_v1.so") # -O3
+        # cname = self.solver.generate_dependencies("nmpc_v0.c")  
+        # system('gcc -fPIC -shared -Os ' + cname + ' -o ' + "nmpc_v0.so") # -O3
         
         # reload compiled mpc
         self.solver = ca.nlpsol("solver", "ipopt", self.so_path, ipopt_options)
 
     def solve(self, ref_states):
-
         # # # # # # # # # # # # # # # #
         # -------- solve NLP ---------
         # # # # # # # # # # # # # # # #
@@ -283,15 +279,16 @@ class NMPC_v1(object):
         sol_x0 = self.sol['x'].full()
         opt_u = sol_x0[self._s_dim:self._s_dim+self._u_dim]
 
-        # Warm start?
+        # Warm initialization
         self.nlp_w0 = list(sol_x0[self._s_dim+self._u_dim:2*(self._s_dim+self._u_dim)]) + list(sol_x0[self._s_dim+self._u_dim:])
         #
         x0_array = np.reshape(sol_x0[:-self._s_dim], newshape=(-1, self._s_dim+self._u_dim))
-        #        
+        
+        # return optimal action, and a sequence of predicted optimal trajectory.          
         return opt_u, x0_array
     
     def sys_dynamics(self, dt):
-        M = 4 # refinement
+        M = 4       # refinement
         DT = dt/M
         X0 = ca.SX.sym("X", self._s_dim)
         U = ca.SX.sym("U", self._u_dim)
@@ -308,11 +305,3 @@ class NMPC_v1(object):
         # Fold
         F = ca.Function('F', [X0, U], [X])
         return F
-            
-    @staticmethod
-    def _quatToEuler(quat):
-        quat_w, quat_x, quat_y, quat_z = quat[0], quat[1], quat[2], quat[3]
-        euler_x = np.arctan2(2*quat_w*quat_x + 2*quat_y*quat_z, quat_w*quat_w - quat_x*quat_x - quat_y*quat_y + quat_z*quat_z)
-        euler_y = -np.arcsin(2*quat_x*quat_z - 2*quat_w*quat_y)
-        euler_z = np.arctan2(2*quat_w*quat_z + 2*quat_x*quat_y, quat_w*quat_w + quat_x*quat_x - quat_y*quat_y - quat_z*quat_z)
-        return [euler_x, euler_y, euler_z]

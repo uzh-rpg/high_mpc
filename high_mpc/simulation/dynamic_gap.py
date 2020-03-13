@@ -1,11 +1,8 @@
 import numpy as np
 #
-from high_mpc.env.quadrotor import Quadrotor_v0
-from high_mpc.env.pendulum import Pendulum_v0
-#
-from high_mpc.nmpc.nmpc_v0 import NMPC_v0
-from high_mpc.nmpc.nmpc_v1 import NMPC_v1
-from high_mpc.planner.pendulum import Pendulum_v1
+from high_mpc.simulation.quadrotor import Quadrotor_v0
+from high_mpc.simulation.pendulum_v0 import Pendulum_v0
+from high_mpc.simulation.pendulum_v1 import Pendulum_v1
 #
 from high_mpc.common.quad_index import *
 
@@ -20,9 +17,14 @@ class Space(object):
     def sample(self):
         return np.random.uniform(self.low, self.high)
 
-class DynamicGap_v0(object):
+class DynamicGap(object):
 
-    def __init__(self, so_path, sigma=10, version=0):
+    def __init__(self, mpc, plan_T, plan_dt):
+        #
+        self.mpc = mpc
+        self.plan_T = plan_T
+        self.plan_dt = plan_dt
+
         # 
         self.goal_point = np.array([4.0,  0.0, 2.0])
         self.pivot_point = np.array([2.0, 0.0, 3.0])
@@ -38,17 +40,10 @@ class DynamicGap_v0(object):
         self.quad = Quadrotor_v0(dt=self.sim_dt)
         self.pend = Pendulum_v0(self.pivot_point, dt=self.sim_dt)
 
-        # Planning parameters, for MPC...
-        self.plan_T = 2.0   # Prediction horizon for MPC and local planner
-        self.plan_dt = 0.04 # Sampling time step for MPC and local planner
-        #
-        if version==0:
-            self.nmpc = NMPC_v0(T=self.plan_T, dt=self.plan_dt, so_path=so_path)
-        else:
-            self.nmpc = NMPC_v1(T=self.plan_T, dt=self.plan_dt, so_path=so_path)
-        self.planner = Pendulum_v1(pivot_point=self.pivot_point, sigma=sigma, \
-            T=self.plan_T, dt=self.plan_dt)
-        
+        self.planner = Pendulum_v1(pivot_point=self.pivot_point, sigma=10, \
+        T=self.plan_T, dt=self.plan_dt)
+    
+
         #
         self.observation_space = Space(
             low=np.array([-10.0, -10.0, -10.0, -2*np.pi, -2*np.pi, -2*np.pi, -10.0, -10.0, -10.0]),
@@ -81,12 +76,11 @@ class DynamicGap_v0(object):
         quad_obs = self.quad.get_cartesian_state()
         pend_obs = self.pend.get_cartesian_state()
         #
-        # obs = quad_obs.tolist() + pend_obs.tolist()
         obs = (quad_obs - pend_obs).tolist()
         
         return obs
 
-    def step(self, u):
+    def step(self, u=0):
         self.t += self.sim_dt
         opt_t = u
         
@@ -99,7 +93,7 @@ class DynamicGap_v0(object):
         ref_traj = quad_s0 + plan_pend_traj + self.quad_sT
 
         # run nonliear model predictive control
-        quad_act, pred_traj = self.nmpc.solve(ref_traj)
+        quad_act, pred_traj = self.mpc.solve(ref_traj)
 
         # run the actual control command on the quadrotor
         self.quad_state = self.quad.run(quad_act)
@@ -136,7 +130,7 @@ class DynamicGap_v0(object):
         quad_s0 = self.quad_state.tolist()
         ref_traj = quad_s0 + plan_pend_traj + self.quad_sT
     
-        _, pred_traj = self.nmpc.solve(ref_traj)
+        _, pred_traj = self.mpc.solve(ref_traj)
         
         opt_node = np.clip( int(opt_t/self.plan_dt), 0, pred_traj.shape[0]-1)
         # if quad_s0[kPosX] >= self.pivot_point[kPosX]+0.5:

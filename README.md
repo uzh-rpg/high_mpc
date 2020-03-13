@@ -42,6 +42,8 @@ export PYTHONPATH=${PYTHONPATH}:/path/to/high_mpc
 Standard MPC
 
 ```
+cd high_mpc
+python3 run_mpc.py
 ```
 
 Learning a High-Level Policy
