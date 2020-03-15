@@ -138,10 +138,10 @@ class DynamicGap(object):
         #     loss = np.linalg.norm(pred_traj[opt_node, kPosX:kPosZ+1] - np.tile(self.goal_point, (pred_traj.shape[0], 1)))
         #     rew = - np.mean(loss)             
         # else:    
-        # opt_min = np.clip(opt_node-10, 0, pred_traj.shape[0]-1)
-        # opt_max = np.clip(opt_node+5, 0, pred_traj.shape[0]-1)
-        opt_min = np.clip(opt_node-1, 0, pred_traj.shape[0]-1)
-        opt_max = np.clip(opt_node+1, 0, pred_traj.shape[0]-1)
+        opt_min = np.clip(opt_node-10, 0, pred_traj.shape[0]-1)
+        opt_max = np.clip(opt_node+5, 0, pred_traj.shape[0]-1)
+        # opt_min = np.clip(opt_node-1, 0, pred_traj.shape[0]-1)
+        # opt_max = np.clip(opt_node+1, 0, pred_traj.shape[0]-1)
         #
         loss = np.linalg.norm(pred_traj[opt_min:opt_max, kPosX:kPosZ+1]  - pred_pend_traj_cart[opt_min:opt_max, kPosX:kPosZ+1])
         rew = - loss

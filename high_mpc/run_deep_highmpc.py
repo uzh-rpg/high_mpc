@@ -6,6 +6,7 @@ from functools import partial
 
 # A Gym style environment
 from autompc.env.dynamic_gap_v0 import DynamicGap_v0
+
 #
 from autompc.common.animate import NMPCDemo
 
