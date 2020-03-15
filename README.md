@@ -49,12 +49,19 @@ python3 run_mpc.py
 Learning a High-Level Policy
 
 ```
-cd high_mpc
 python3 run_highmpc.py 
 ```
 
 Learning a Deep High-Level Policy
 
 ```
+# collect training data for the MLP
+python3 run_deep_highmpc.py --option 0
+
+# train the deep high-level policy with pre-collected data
+python3 run_deep_highmpc.py --option 1
+
+# evaluate the performance with pre-trained deep high-level policy
+python3 run_deep_highmpc.py --option 2
 ```
 
