@@ -48,7 +48,7 @@ def main():
     )
 
     save_dir = U.get_dir(args.save_dir + "/saved_policy")
-    save_dir = os.path.join(save_dir, datetime.datetime.now().strftime("gaussian-%m-%d-%H-%M-%S"))
+    save_dir = os.path.join(save_dir, datetime.datetime.now().strftime("highmpc-%m-%d-%H-%M-%S"))
 
     #
     logger.configure(dir=save_dir)

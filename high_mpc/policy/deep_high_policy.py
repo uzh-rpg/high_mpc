@@ -11,7 +11,7 @@ from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 #
-from high_mpc.policy.wml import GaussianPolicy_v0
+from high_mpc.policy.high_policy import GaussianPolicy
 
 class Actor(Model):
 
@@ -128,7 +128,7 @@ def data_collection(env, logger, save_dir, max_samples,
         # # # # # # # # # # # # # # # # # # 
         # ---- Weighted Maximum Likelihood 
         # # # # # # # # # # # # # # # # # # 
-        pi = GaussianPolicy_v0(act_dim, clip_value=clip_value)
+        pi = GaussianPolicy(act_dim, clip_value=clip_value)
         # online optimization
         opt_success, pass_index = True, 0
         if obs[0] >= 0.2: # 
