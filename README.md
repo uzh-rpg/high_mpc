@@ -1,6 +1,8 @@
 ## High-MPC: Learning High-Level Policies for Model Predictive Control
 
-![Method](docs/figures/MethodOverview.png)
+<!-- ![Method](docs/figures/MethodOverview.png) -->
+<img src="docs/figures/MethodOverview.png" alt="drawing" style="width:500px;"/>
+
 
 This project contains the code for solving the problem of passing through a pendulum-like gate.
 We make use of a high-level policy learning strategy to train a neural network which 
