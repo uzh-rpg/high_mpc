@@ -222,7 +222,7 @@ def train(env, logger, data_dir, hidden_units, learning_rate, \
             loss = actor.train_batch(obs, act)
             train_loss.append(loss)
 
-        if (epoch+1) % 100 == 0:
+        if (epoch) % 100 == 0:
             print("Epoch {:03d}: Loss: {:.3f}".format(epoch, np.mean(train_loss)))
             actor.save_weights(data_dir, iter=epoch)
 
