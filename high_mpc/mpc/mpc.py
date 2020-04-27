@@ -220,6 +220,7 @@ class MPC(object):
         # -- qpoases            
         # # # # # # # # # # # # # # # # # # # 
         # nlp_options ={
+        #     'verbose': False, \
         #     "qpsol": "qpoases", \
         #     "hessian_approximation": "gauss-newton", \
         #     "max_iter": 100, 
@@ -228,10 +229,9 @@ class MPC(object):
         #     "qpsol_options": {"sparse":True, "hessian_type": "posdef", "numRefinementSteps":1} 
         # }
         # self.solver = ca.nlpsol("solver", "sqpmethod", nlp_dict, nlp_options)
-        # self.so_name = "mpc.so"
-        # cname = self.solver.generate_dependencies("mpc_v0.c")  
-        # system('gcc -fPIC -shared ' + cname + ' -o ' + self.so_name)
-        # self.solver = ca.nlpsol("solver", "sqpmethod", "./"+self.so_name, nlp_options)
+        # cname = self.solver.generate_dependencies("mpc_v1.c")  
+        # system('gcc -fPIC -shared ' + cname + ' -o ' + self.so_path)
+        # self.solver = ca.nlpsol("solver", "sqpmethod", self.so_path, nlp_options)
         
 
         # # # # # # # # # # # # # # # # # # # 
@@ -239,21 +239,22 @@ class MPC(object):
         # # # # # # # # # # # # # # # # # # # 
         ipopt_options = {
             'verbose': False, \
-            # "ipopt.tol": 1e-4,
-            # "ipopt.acceptable_tol": 1e-4,
+            "ipopt.tol": 1e-4,
+            "ipopt.acceptable_tol": 1e-4,
             "ipopt.max_iter": 100,
-            # "ipopt.warm_start_init_point": "yes",
+            "ipopt.warm_start_init_point": "yes",
             "ipopt.print_level": 0, 
             "print_time": False
         }
-        #
-        self.solver = ca.nlpsol("solver", "ipopt", nlp_dict, ipopt_options)
-        # jit (just-in-time compilation)
-        # print("Generating shared library........")
-        # cname = self.solver.generate_dependencies("nmpc_v1.c")  
-        # system('gcc -fPIC -shared -Os ' + cname + ' -o ' + "nmpc_v1.so") # -O3
         
-        # reload compiled mpc
+        # self.solver = ca.nlpsol("solver", "ipopt", nlp_dict, ipopt_options)
+        # # jit (just-in-time compilation)
+        # print("Generating shared library........")
+        # cname = self.solver.generate_dependencies("mpc_v1.c")  
+        # system('gcc -fPIC -shared -O3 ' + cname + ' -o ' + self.so_path) # -O3
+        
+        # # reload compiled mpc
+        print(self.so_path)
         self.solver = ca.nlpsol("solver", "ipopt", self.so_path, ipopt_options)
 
     def solve(self, ref_states):

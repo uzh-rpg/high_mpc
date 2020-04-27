@@ -1,7 +1,7 @@
 ## High-MPC: Learning High-Level Policies for Model Predictive Control
 
 <!-- ![Method](docs/figures/MethodOverview.png) -->
-<img src="docs/figures/MethodOverview.png" alt="drawing" style="width:400px;"/>
+<img src="docs/figures/MethodOverview.png" alt="drawing" style="width:300px;"/>
 
 
 This project contains the code for solving the problem of passing through a pendulum-like gate.

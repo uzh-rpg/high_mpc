@@ -41,7 +41,7 @@ class DynamicGap(object):
         self.pend = Pendulum_v0(self.pivot_point, dt=self.sim_dt)
 
         self.planner = Pendulum_v1(pivot_point=self.pivot_point, sigma=10, \
-        T=self.plan_T, dt=self.plan_dt)
+            T=self.plan_T, dt=self.plan_dt)
     
 
         #
