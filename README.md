@@ -1,4 +1,4 @@
-## High-MPC: Learning High-Level Policies for Model Predictive Control
+## High-MPC: Learning to Fly Through a Through Dynamic Gates
 
 <!-- ![Method](docs/figures/MethodOverview.png) -->
 <img src="docs/figures/MethodOverview.png" alt="drawing" style="width:300px;"/>
