@@ -1,4 +1,4 @@
-## High-MPC: Learning to Fly Through Dynamic Gates
+## Learning High-Level Policies for Model Predictive Control
 
 <!-- ![Method](docs/figures/MethodOverview.png) -->
 <img src="docs/figures/MethodOverview.png" alt="drawing" style="width:300px;"/>
@@ -6,6 +6,7 @@
 
 The combination of policy search and deep neural networks holds the promise of automating a variety of decision- making tasks. Model Predictive Control (MPC) provides robust solutions to robot control tasks by making use of a dynamical model of the system and solving an optimization problem online over a short planning horizon. In this work, we leverage probabilistic decision-making approaches and the generalization capability of artificial neural networks to the powerful online optimization by learning a deep high-level policy for the MPC (High-MPC). Conditioning on robotâ€™s local observations, the trained neural network policy is capable of adaptively selecting high-level decision variables for the low-level MPC controller, which then generates optimal control commands for the robot. First, we formulate the search of high-level decision variables for MPC as a policy search problem, specifically, a probabilistic inference problem. The problem can be solved in a closed-form solution. Second, we propose a self-supervised learning algorithm for learning a neural network high-level policy, which is useful for online hyperparameter adaptations in highly dynamic environments. We demonstrate the importance of incorporating the online adaption into autonomous robots by using the proposed method to solve a challenging control problem, where the task is to control a simulated quadrotor to fly through a swinging gate. We show that our approach can handle situations that are difficult for standard MPC.
 
+### Publication
 ```
 @InProceedings{Yunlong2020
   author = {Song, Yunlong and and Scaramuzza, Davide},
