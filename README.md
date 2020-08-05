@@ -15,7 +15,7 @@ IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las 
 
 ```
 @InProceedings{Yunlong2020,
-  author = {Song, Yunlong and and Scaramuzza, Davide},
+  author = {Song, Yunlong and Scaramuzza, Davide},
   title = {Learning High-Level Policies for Model Predictive Control},
   booktitle = {IEEE/RSJ Int. Conf. Intell. Robot. Syst. (IROS)},
   year = {2020}
