@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Policy Search for Model Predictive Control</title>
+  <meta name="description" content="Policy Search for Model Predictive Control 
+">
+  
+  <meta name="author" content="Robotics and Perception Group">
+  <meta name="copyright" content="&copy; Robotics and Perception Group 2021">
+  
+
+  <!-- External libraries -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css">
+
+  <!-- Favicon and other icons (made with http://www.favicon-generator.org/) -->
+  <link rel="shortcut icon" href="/high_mpc/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/high_mpc/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="57x57" href="/high_mpc/assets/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/high_mpc/assets/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/high_mpc/assets/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/high_mpc/assets/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/high_mpc/assets/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/high_mpc/assets/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/high_mpc/assets/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/high_mpc/assets/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/high_mpc/assets/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/high_mpc/assets/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/high_mpc/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/high_mpc/assets/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/high_mpc/assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="/high_mpc/assets/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/high_mpc/assets/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  <!-- Facebook OGP cards -->
+  <meta property="og:description" content="Policy Search for Model Predictive Control 
+" />
+  <meta property="og:url" content="http://localhost:4000/">
+  <meta property="og:site_name" content="Policy Search for Model Predictive Control" />
+  <meta property="og:title" content="Policy Search for Model Predictive Control" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="http://localhost:4000/high_mpc/assets/logo.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="612" />
+  <meta property="og:image:height" content="605" />
+  
+
+  
+  <!-- Twitter: card tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Policy Search for Model Predictive Control">
+  <meta name="twitter:description" content="Policy Search for Model Predictive Control 
+">
+  <meta name="twitter:image" content="http://localhost:4000/high_mpc/assets/logo.png">
+  <meta name="twitter:url" content="http://localhost:4000/">
+  
+
+  
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/high_mpc/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/high_mpc/">
+	<link rel="alternate" type="application/rss+xml" title="Policy Search for Model Predictive Control" href="http://localhost:4000/high_mpc/feed.xml" />
+	
+	<!-- Tooltips -->
+	<script type="text/javascript">
+		window.tooltips = []
+	</script>
+</head>
+
+
+  <body>
+
+    <header class="navigation" role="banner">
+  <div class="navigation-wrapper">
+    <a href="http://rpg.ifi.uzh.ch/" class="logo">
+      
+      <img src="/high_mpc/assets/logo.png" alt="Policy Search for Model Predictive Control">
+      
+    </a>
+    <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav role="navigation">
+      <ul id="js-navigation-menu" class="navigation-menu show">
+        <li class="nav-link"><a href="/high_mpc">Home</a>
+          
+	
+	<li class="nav-link"><a href="/high_mpc/about/">People</a>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+        <li class="nav-link"><a href="https://github.com/uzh-rpg/high_mpc">GitHub</a>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+        <!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<div class="home">
+
+  <div class="site-header-container has-cover"
+    style="background-image: url(/high_mpc/assets/prompc.gif);" >
+    <div class="scrim has-cover">
+      <header class="site-header">
+        <h1 class="title" style=font-size:80px>Policy Search for Model Predictive Control</h1>
+        <p class="title" style=font-size:30px>Theory and Application to Agile Drone Control</p>
+      </header>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h1 id="headings">Introduction</h1>
+    <p style="text-align: justify">
+      This work establishes a novel architecture to bridge the gap between the
+      learning-based method of <b>policy search</b> and the optimization-based approach
+      of <b>model predictive control (MPC)</b>.
+      Our main contribution is a policy search for MPC framework, in which
+      the design of both fixed and adaptive high-level decision variables
+      for the MPC controller is formulated as a policy search problem.
+      We use this framework to learn three kinds of high-level policies:
+      a Gaussian policy, a Gaussian linear policy, and a neural network policy.
+      We show that the policy search algorithm
+      allows us to learn both state-independent and state-dependent
+      decision variables for MPC and the training performs consistently well
+      across different random seeds.
+
+      <br>
+      <br>
+
+      We apply the proposed method to address one of the major
+      challenges towards agile drone flight in highly dynamic
+      environments--flying a quadrotor through fast-moving gates.
+      The resulting controller called <b>High-MPC</b>, which consists of a
+      high-level neural network policy and a MPC controller, achieved adaptive and robust
+      real-time control performance for the task, in both simulation and the real world.
+      The key is using the neural network for selecting the desired traversal time for the MPC
+      and the MPC for simultaneously trajectory planning and vehicle control.
+      These findings suggest that our framework opens up new opportunities for
+      achieving adaptive optimal control for the physical robots in a
+      highly dynamic environment.
+
+    </p>
+
+    <!-- <h2 id="headings">Video</h2>
+    <iframe width="750" height="421" src="https://www.youtube.com/embed/Zeyv1bN9v4A" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe> -->
+
+  </div>
+</div>
+
+<!-- <div class="container" style="margin-top:30px;margin-bottom:30px;">
+      <h2>Reference</h2>
+      If you use this code in a publication, please cite our paper.
+      <div class="row">
+
+        <div class="col-lg-4" style="padding:0;">
+          <a href="https://arxiv.org/abs/2009.00563">
+            <img style="width: 300px" src="assets/paper_thumbnail.png" alt="Flightmare: A Flexible Quadrotor Simulator">
+          </a>
+        </div>
+
+        <div class="col-lg-8" style="padding:0;">
+          <div style="background:#ffffff;margin:0px;padding:0px;">
+            <pre>
+          <code class="pre-scrollable" style="background:#ffffff;color:#333;font-size:12px;padding:0px;border-width:0px;">
+            @article{yunlong2020flightmare,
+            title={Flightmare: A Flexible Quadrotor Simulator},
+            author={Song, Yunlong and Naji, Selim and Kaufmann, Elia and Loquercio, Antonio and Scaramuzza, Davide},
+            journal={arXiv preprint arXiv:2009.00563},
+            year={2020}}
+          </code>
+          </pre>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h3 class="footer-heading">Policy Search for Model Predictive Control</h3>
+
+    <div class="site-navigation">
+
+      <!-- <p><strong>Site Map</strong></p> -->
+      <ul class="pages">
+        <li class="nav-link"><a href="/high_mpc">Home</a>
+          
+	
+	<li class="nav-link"><a href="/high_mpc/about/">People</a>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+        <li class="nav-link"><a href="https://github.com/uzh-rpg/high_mpc">GitHub</a>
+      </ul>
+    </div>
+
+    <div class="site-contact">
+
+      <p><strong>Contact</strong></p>
+      <ul class="social-media-list">
+        <li>
+          <a href="mailto:song@ifi.uzh.ch">
+            <i class="fa fa-envelope-o"></i>
+            <span class="username">song@ifi.uzh.ch</span>
+          </a>
+        </li>
+
+        
+        
+        <li>
+          <a href="https://github.com/uzh-rpg" title="Fork me on GitHub">
+            <i class="fa fa-github"></i>
+            <span
+              class="username">RPG</span>
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a href="https://www.youtube.com/user/ailabRPG" title="Subscribe on YouTube">
+            <i class="fa fa-youtube"></i>
+            <span
+              class="username">RPG</span>
+          </a>
+        </li>
+        
+        
+
+      </ul>
+    </div>
+
+    <div class="site-signature">
+      <!-- <p class="rss-subscribe text"><strong>Subscribe <a href="/high_mpc/feed.xml">via
+            RSS</a></strong></p> -->
+      <p class="text">Policy Search for Model Predictive Control 
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+<script src="//unpkg.com/popper.js@1"></script>
+<script src="//unpkg.com/tippy.js@5"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    // Default syntax highlighting
+    hljs.initHighlightingOnLoad();
+
+    // Header
+    var menuToggle = $('#js-mobile-menu').unbind();
+    $('#js-navigation-menu').removeClass("show");
+    menuToggle.on('click', function (e) {
+      e.preventDefault();
+      $('#js-navigation-menu').slideToggle(function () {
+        if ($('#js-navigation-menu').is(':hidden')) {
+          $('#js-navigation-menu').removeAttr('style');
+        }
+      });
+    });
+
+    // Enable tooltips via Tippy.js
+    if (Array.isArray(window.tooltips)) {
+      window.tooltips.forEach(function (tooltip) {
+        var selector = tooltip[0];
+        var config = tooltip[1];
+        tippy(selector, config);
+      })
+    }
+  });
+
+</script>
+
+
+
+
+
+  </body>
+
+</html>

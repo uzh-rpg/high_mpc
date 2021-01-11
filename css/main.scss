@@ -1,0 +1,24 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+// Includes Bourbon, Neat, and Bitters (thanks, thoughtbot!)
+@import
+  "bourbon/bourbon",
+  "base/base",
+  "neat/neat",
+  "layout"
+;
+
+.inline-block {
+   display: inline-block;
+}
+
+.circular--square {
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+}
