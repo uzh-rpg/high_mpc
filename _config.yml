@@ -10,7 +10,7 @@ exclude:
 
 # Site settings
 title: Policy Search for Model Predictive Control 
-subtitle: Theory and Application to Agile Drone Control 
+subtitle:  with Application to Agile Drone Flight
 # 
 email: song@ifi.uzh.ch 
 name: Robotics and Perception Group 
