@@ -14,11 +14,14 @@ Y. Song and D. Scaramuzza,
 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las Vegas, 2020. [[PDF](http://rpg.ifi.uzh.ch/docs/IROS20_Yunlong.pdf)]
 
 ```
-@InProceedings{Yunlong2020,
-  author = {Song, Yunlong and Scaramuzza, Davide},
-  title = {Learning High-Level Policies for Model Predictive Control},
-  booktitle = {IEEE/RSJ Int. Conf. Intell. Robot. Syst. (IROS)},
-  year = {2020}
+@INPROCEEDINGS{song2020learning,
+  author={Song, Yunlong and Scaramuzza, Davide},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+  title={Learning High-Level Policies for Model Predictive Control}, 
+  year={2020},
+  pages={7629-7636},
+  doi={10.1109/IROS45743.2020.9340823},
+  organization={IEEE}
 }
 ```
 
