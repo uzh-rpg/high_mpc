@@ -93,7 +93,7 @@
     <nav role="navigation">
       <ul id="js-navigation-menu" class="navigation-menu show">
         <li class="nav-link"><a href="/high_mpc">Home</a>
-          
+          <!-- 
 	
 	<li class="nav-link"><a href="/high_mpc/about/">People</a>
 	
@@ -112,7 +112,7 @@
 
 	
 
-
+ -->
         <li class="nav-link"><a href="https://github.com/uzh-rpg/high_mpc">GitHub</a>
       </ul>
     </nav>
@@ -138,31 +138,88 @@
   <div class="wrapper">
     <h1 id="headings">Introduction</h1>
     <p style="text-align: justify">
-      This work presents a new method to combine policy search and 
-      model predictive control~(MPC). 
-      Our main contribution is <b>a policy-search-for-MPC framework</b>, in which 
-      the design of both state-independent and state-dependent high-level decision 
-      variables in the trajectory optimization is formulated as a policy search problem. 
-      The resulting framework allows for learning three kinds of 
-      high-level policies, including Gaussian policies, Gaussian linear policies, 
-      and neural network policies.
-      We apply the proposed framework to address a challenging problem in agile drone flight, 
-      which is flying a quadrotor through fast-moving gates.
-      Solving this problem is an important step towards 
-      deploying the vehicle in a highly dynamic environment. 
-      We show that the proposed approach successfully maneuvers a quadrotor 
-      to fly through a pendulum-like dynamic gate in the physical world.
-      The key is having both a trained high-level policy for automatically
-      selecting desired decision variables and an MPC for simultaneously 
-      trajectory planning and vehicle control.
-      Our findings suggest that the proposed framework can achieve both 
-      adaptive and robust control performance of the physical robot. 
+      Policy Search and Model Predictive Control (MPC) are two different paradigms for robot control:
+      policy search has the strength of automatically learning complex policies using experienced data,
+      while MPC can offer optimal control performance using models and trajectory optimization. 
+      An open research question is how to leverage and combine the advantages of both approaches.
+      In this work, we provide an answer by using policy search for automatically choosing high-level decision variables for MPC, 
+      which leads to a novel <b>policy-search-for-model-predictive-control framework</b>. 
+      Specifically, we formulate the MPC as a parameterized controller, where the hard-to-optimize
+      decision variables are represented as high-level policies.
+      Such a formulation allows optimizing policies in a self-supervised fashion. 
+      We validate this framework by focusing on a challenging problem in agile drone flight: 
+      flying a quadrotor through fast-moving gates.
+      Experiments show that our controller achieves robust and real-time control performance in both simulation and the real world. 
+      The proposed framework offers a new perspective for merging learning and control.  
+    </p>
+
+      <p><strong>If you like this project, don't forget to support us on GitHub.</strong>
+      <!-- Place this tag where you want the button to render. -->
+      <a class="github-button" href="https://github.com/uzh-rpg/high_mpc"
+        data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true"
+        aria-label="Star uzh-rpg/high_mpc on GitHub">Star</a>
+    </p>
+    
+    <h2 id="headings">Contributions</h2>
+    <ul>
+      <li>A Novel Framework for Merging Reinforcement Learning and Model Predictive Control</li>
+      <li>An Autonomous System That Controls A Quadrotor to Fly Through Dynamic Gates</li>
+    </ul>
+
     </p>
 
     <h2 id="headings">Video</h2> 
-    <iframe width="700" height="406" src="https://www.youtube.com/embed/ZxfIJ0Q0-ac" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    
+    <iframe width="700" height="406" src="https://www.youtube.com/embed/Qei7oGiEIxY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    </p>
+
+    <div class="container" style="margin-top:30px;margin-bottom:30px;">
+      <h2>Reference</h2>
+      If you use this code in a publication, please cite our paper.
+      <div class="row">
+        <!--  -->
+        <div class="col-lg-4" style="padding:0;">
+          <a href="http://rpg.ifi.uzh.ch/docs/TRO21_Yunlong.pdf">
+            <img style="width: 300px" src="assets/paper_thumbnail.png" alt="Policy Search for Model Predictive Control with Application to Agile Drone Flight">
+          </a>
+        </div>
+        <!--  -->
+        <div class="col-lg-8" style="padding:0;">
+          <div style="background:#ffffff;margin:0px;padding:0px;">
+            <pre>
+<code class="pre-scrollable" style="background:#ffffff;color:#333;font-size:12px;padding:0px;border-width:0px;">
+@inproceedings{song2021policy,
+  title={Policy Search for Model Predictive Control with Application to Agile Drone Flight},
+  author={Song, Yunlong and Scaramuzza, Davide},
+  booktitle={arxiv},
+  year={2021}
+}
+</code>
+          </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div id="people">
+  <div class="inline-block">
+    <a href="http://yun-long.github.io/">
+    <img class="circular--square" src="/high_mpc/assets/people/yunlong.jpg" style="width: 200px">
+    <p style="text-align:center"><strong>Yunlong Song</strong></p>
+    </a>
   </div>
+  <div class="inline-block">
+    <a href="http://rpg.ifi.uzh.ch/people_scaramuzza.html">
+    <img class="circular--square" src="/high_mpc/assets/people/davide.png" style="width: 200px">
+    <p style="text-align:center"><strong>Prof. Davide Scaramuzza</strong></p>
+    </a>
+  </div>
+</div>
+
+  </div>
+
+
 
 </div>
     </div>
