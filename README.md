@@ -35,7 +35,7 @@ Please find a list of demonstrations in [here](docs/gifs/README.md).
   title={Learning high-level policies for model predictive control},
   author={Song, Yunlong and Scaramuzza, Davide},
   booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  year={2020},
+  pages={7629--7636},
   organization={IEEE}
 }
 ```
