@@ -1,4 +1,4 @@
-## Learning High-Level Policies for Model Predictive Control
+## Policy Search for Model Predictive Control with Application to Agile Drone Flight
 
 [![Method](docs/figures/method.png)](https://youtu.be/Qei7oGiEIxY)
 
@@ -22,6 +22,8 @@ Y. Song and D. Scaramuzza,
   year={2021}
 }
 ```
+
+## Learning High-Level Policies for Model Predictive Control
 
 Y. Song and D. Scaramuzza,
 "**Learning High-Level Policies for Model Predictive Control**,"
