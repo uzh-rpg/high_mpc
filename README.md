@@ -40,8 +40,6 @@ Please find a list of demonstrations in [here](docs/gifs/README.md).
 }
 ```
 
-![High_MPC_Demo](docs/gifs/high_mpc.gif)
-
 ### Installation
 
 Clone the repo
