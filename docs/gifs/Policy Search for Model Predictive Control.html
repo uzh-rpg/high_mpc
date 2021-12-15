@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://uzh-rpg.github.io/high_mpc/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Policy Search for Model Predictive Control</title>
+  <meta name="description" content="Policy Search for Model Predictive Control 
+">
+  
+  <meta name="author" content="Robotics and Perception Group">
+  <meta name="copyright" content="© Robotics and Perception Group 2021">
+  
+
+  <!-- External libraries -->
+  <style data-tippy-stylesheet="">.tippy-tooltip[data-animation=fade][data-state=hidden]{opacity:0}.tippy-iOS{cursor:pointer!important;-webkit-tap-highlight-color:transparent}.tippy-popper{pointer-events:none;max-width:calc(100vw - 10px);transition-timing-function:cubic-bezier(.165,.84,.44,1);transition-property:transform}.tippy-tooltip{position:relative;color:#fff;border-radius:4px;font-size:14px;line-height:1.4;background-color:#333;transition-property:visibility,opacity,transform;outline:0}.tippy-tooltip[data-placement^=top]>.tippy-arrow{border-width:8px 8px 0;border-top-color:#333;margin:0 3px;transform-origin:50% 0;bottom:-7px}.tippy-tooltip[data-placement^=bottom]>.tippy-arrow{border-width:0 8px 8px;border-bottom-color:#333;margin:0 3px;transform-origin:50% 7px;top:-7px}.tippy-tooltip[data-placement^=left]>.tippy-arrow{border-width:8px 0 8px 8px;border-left-color:#333;margin:3px 0;transform-origin:0 50%;right:-7px}.tippy-tooltip[data-placement^=right]>.tippy-arrow{border-width:8px 8px 8px 0;border-right-color:#333;margin:3px 0;transform-origin:7px 50%;left:-7px}.tippy-tooltip[data-interactive][data-state=visible]{pointer-events:auto}.tippy-tooltip[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}.tippy-arrow{position:absolute;border-color:transparent;border-style:solid}.tippy-content{padding:5px 9px}</style><link rel="stylesheet" href="./Policy Search for Model Predictive Control_files/font-awesome.min.css">
+  <link rel="stylesheet" href="./Policy Search for Model Predictive Control_files/monokai-sublime.min.css">
+  <link rel="stylesheet" href="./Policy Search for Model Predictive Control_files/lightbox.css">
+
+  <!-- Favicon and other icons (made with http://www.favicon-generator.org/) -->
+  <link rel="shortcut icon" href="https://uzh-rpg.github.io/high_mpc/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://uzh-rpg.github.io/high_mpc/assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://uzh-rpg.github.io/high_mpc/assets/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://uzh-rpg.github.io/high_mpc/assets/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://uzh-rpg.github.io/high_mpc/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://uzh-rpg.github.io/high_mpc/assets/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://uzh-rpg.github.io/high_mpc/assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="https://uzh-rpg.github.io/high_mpc/assets/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/high_mpc/assets/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  <!-- Facebook OGP cards -->
+  <meta property="og:description" content="Policy Search for Model Predictive Control 
+">
+  <meta property="og:url" content="https://uzh-rpg.github.io/">
+  <meta property="og:site_name" content="Policy Search for Model Predictive Control">
+  <meta property="og:title" content="Policy Search for Model Predictive Control">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://uzh-rpg.github.io/high_mpc/assets/logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="612">
+  <meta property="og:image:height" content="605">
+  
+
+  
+  <!-- Twitter: card tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Policy Search for Model Predictive Control">
+  <meta name="twitter:description" content="Policy Search for Model Predictive Control 
+">
+  <meta name="twitter:image" content="https://uzh-rpg.github.io/high_mpc/assets/logo.png">
+  <meta name="twitter:url" content="https://uzh-rpg.github.io/">
+  
+
+  
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="./Policy Search for Model Predictive Control_files/main.css">
+  <link rel="canonical" href="https://uzh-rpg.github.io/high_mpc/">
+	<link rel="alternate" type="application/rss+xml" title="Policy Search for Model Predictive Control" href="https://uzh-rpg.github.io/high_mpc/feed.xml">
+	
+	<!-- Tooltips -->
+	<script type="text/javascript">
+		window.tooltips = []
+	</script>
+</head>
+
+
+  <body data-new-gr-c-s-check-loaded="14.1042.0" data-gr-ext-installed="">
+
+    <header class="navigation" role="banner">
+  <div class="navigation-wrapper">
+    <a href="http://rpg.ifi.uzh.ch/" class="logo">
+      
+      <img src="./Policy Search for Model Predictive Control_files/logo.png" alt="Policy Search for Model Predictive Control">
+      
+    </a>
+    <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav role="navigation">
+      <ul id="js-navigation-menu" class="navigation-menu">
+        <li class="nav-link"><a href="https://uzh-rpg.github.io/high_mpc">Home</a>
+          <!-- 
+	
+	<li class="nav-link"><a href="/high_mpc/about/">People</a>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+ -->
+        </li><li class="nav-link"><a href="https://github.com/uzh-rpg/high_mpc">GitHub</a>
+      </li></ul>
+    </nav>
+  </div>
+</header>
+
+    <div class="page-content">
+        <!-- Place this tag in your head or just before your close body tag. -->
+<script async="" defer="" src="./Policy Search for Model Predictive Control_files/buttons.js"></script>
+
+<div class="home">
+
+  <div class="site-header-container has-cover" style="background-image: url(/high_mpc/assets/prompc.gif);">
+    <div class="scrim has-cover">
+      <header class="site-header">
+        <h1 class="title" style="font-size:80px">Policy Search for Model Predictive Control</h1>
+        <p class="title" style="font-size:30px">with Application to Agile Drone Flight</p>
+      </header>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h1 id="headings">Introduction</h1>
+    <p style="text-align: justify">
+      Policy Search and Model Predictive Control (MPC) are two different paradigms for robot control:
+      policy search has the strength of automatically learning complex policies using experienced data,
+      while MPC can offer optimal control performance using models and trajectory optimization. 
+      An open research question is how to leverage and combine the advantages of both approaches.
+      In this work, we provide an answer by using policy search for automatically choosing high-level decision variables for MPC, 
+      which leads to a novel <b>policy-search-for-model-predictive-control framework</b>. 
+      Specifically, we formulate the MPC as a parameterized controller, where the hard-to-optimize
+      decision variables are represented as high-level policies.
+      Such a formulation allows optimizing policies in a self-supervised fashion. 
+      We validate this framework by focusing on a challenging problem in agile drone flight: 
+      flying a quadrotor through fast-moving gates.
+      Experiments show that our controller achieves robust and real-time control performance in both simulation and the real world. 
+      The proposed framework offers a new perspective for merging learning and control.  
+    </p>
+
+      <p><strong>If you like this project, don't forget to support us on GitHub.</strong>
+      <!-- Place this tag where you want the button to render. -->
+      <span></span>
+    </p>
+    
+    <h2 id="headings">Contributions</h2>
+    <ul>
+      <li>A Novel Framework for Merging Reinforcement Learning and Model Predictive Control</li>
+      <li>An Autonomous System That Controls A Quadrotor to Fly Through Dynamic Gates</li>
+    </ul>
+
+    <p></p>
+
+    <h2 id="headings">Video</h2> 
+    <iframe width="700" height="406" src="./Policy Search for Model Predictive Control_files/Qei7oGiEIxY.html" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+    <p></p>
+
+    <div class="container" style="margin-top:30px;margin-bottom:30px;">
+      <h2>Reference</h2>
+      If you use this code in a publication, please cite our paper.
+      <div class="row">
+        <!--  -->
+        <div class="col-lg-4" style="padding:0;">
+          <a href="http://rpg.ifi.uzh.ch/docs/TRO21_Yunlong.pdf">
+            <img style="width: 300px" src="./Policy Search for Model Predictive Control_files/paper_thumbnail.png" alt="Policy Search for Model Predictive Control with Application to Agile Drone Flight">
+          </a>
+        </div>
+        <!--  -->
+        <div class="col-lg-8" style="padding:0;">
+          <div style="background:#ffffff;margin:0px;padding:0px;">
+            <pre><code class="pre-scrollable hljs properties" style="background:#ffffff;color:#333;font-size:12px;padding:0px;border-width:0px;">
+<span class="hljs-attr">@inproceedings{song2021policy,</span>
+  <span class="hljs-attr">title</span>=<span class="hljs-string">{Policy Search for Model Predictive Control with Application to Agile Drone Flight},</span>
+  <span class="hljs-attr">author</span>=<span class="hljs-string">{Song, Yunlong and Scaramuzza, Davide},</span>
+  <span class="hljs-attr">booktitle</span>=<span class="hljs-string">{arxiv},</span>
+  <span class="hljs-attr">year</span>=<span class="hljs-string">{2021}</span>
+<span class="hljs-attr">}</span>
+</code>
+          </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div id="people">
+  <div class="inline-block">
+    <a href="http://yun-long.github.io/">
+    <img class="circular--square" src="./Policy Search for Model Predictive Control_files/yunlong.jpg" style="width: 200px">
+    <p style="text-align:center"><strong>Yunlong Song</strong></p>
+    </a>
+  </div>
+  <div class="inline-block">
+    <a href="http://rpg.ifi.uzh.ch/people_scaramuzza.html">
+    <img class="circular--square" src="./Policy Search for Model Predictive Control_files/davide.png" style="width: 200px">
+    <p style="text-align:center"><strong>Prof. Davide Scaramuzza</strong></p>
+    </a>
+  </div>
+</div>
+
+  </div>
+
+
+
+</div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h3 class="footer-heading">Policy Search for Model Predictive Control</h3>
+
+    <div class="site-navigation">
+
+      <!-- <p><strong>Site Map</strong></p> -->
+      <ul class="pages">
+        <li class="nav-link"><a href="https://uzh-rpg.github.io/high_mpc">Home</a>
+          
+	
+	</li><li class="nav-link"><a href="https://uzh-rpg.github.io/high_mpc/about/">People</a>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+        </li><li class="nav-link"><a href="https://github.com/uzh-rpg/high_mpc">GitHub</a>
+      </li></ul>
+    </div>
+
+    <div class="site-contact">
+
+      <p><strong>Contact</strong></p>
+      <ul class="social-media-list">
+        <li>
+          <a href="mailto:song@ifi.uzh.ch">
+            <i class="fa fa-envelope-o"></i>
+            <span class="username">song@ifi.uzh.ch</span>
+          </a>
+        </li>
+
+        
+        
+        <li>
+          <a href="https://github.com/uzh-rpg" title="Fork me on GitHub">
+            <i class="fa fa-github"></i>
+            <span class="username">RPG</span>
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a href="https://www.youtube.com/user/ailabRPG" title="Subscribe on YouTube">
+            <i class="fa fa-youtube"></i>
+            <span class="username">RPG</span>
+          </a>
+        </li>
+        
+        
+
+      </ul>
+    </div>
+
+    <div class="site-signature">
+      <!-- <p class="rss-subscribe text"><strong>Subscribe <a href="/high_mpc/feed.xml">via
+            RSS</a></strong></p> -->
+      <p class="text">Policy Search for Model Predictive Control 
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="./Policy Search for Model Predictive Control_files/jquery-3.4.1.min.js"></script>
+<script src="./Policy Search for Model Predictive Control_files/highlight.min.js"></script>
+<script src="./Policy Search for Model Predictive Control_files/lightbox.min.js"></script>
+<script src="./Policy Search for Model Predictive Control_files/popper.js@1"></script>
+<script src="./Policy Search for Model Predictive Control_files/tippy.js@5"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    // Default syntax highlighting
+    hljs.initHighlightingOnLoad();
+
+    // Header
+    var menuToggle = $('#js-mobile-menu').unbind();
+    $('#js-navigation-menu').removeClass("show");
+    menuToggle.on('click', function (e) {
+      e.preventDefault();
+      $('#js-navigation-menu').slideToggle(function () {
+        if ($('#js-navigation-menu').is(':hidden')) {
+          $('#js-navigation-menu').removeAttr('style');
+        }
+      });
+    });
+
+    // Enable tooltips via Tippy.js
+    if (Array.isArray(window.tooltips)) {
+      window.tooltips.forEach(function (tooltip) {
+        var selector = tooltip[0];
+        var config = tooltip[1];
+        tippy(selector, config);
+      })
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+
+
+<div id="lightboxOverlay" tabindex="-1" class="lightboxOverlay" style="display: none;"></div><div id="lightbox" tabindex="-1" class="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=""><div class="lb-nav"><a class="lb-prev" aria-label="Previous image" href="https://uzh-rpg.github.io/high_mpc/"></a><a class="lb-next" aria-label="Next image" href="https://uzh-rpg.github.io/high_mpc/"></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
