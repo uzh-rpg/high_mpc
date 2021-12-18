@@ -1,6 +1,6 @@
 ## Policy Search for Model Predictive Control with Application to Agile Drone Flight
 
-[![Method](docs/figures/method.png)](https://youtu.be/Qei7oGiEIxY)
+<!-- [![Method](docs/figures/method.png)](https://youtu.be/Qei7oGiEIxY) -->
 
 ![High_MPC_Demo](docs/gifs/prompc.gif)
 
