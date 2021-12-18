@@ -21,7 +21,7 @@ Y. Song and D. Scaramuzza,
 }
 ```
 
-<iframe width="280" height="157" src="https://www.youtube.com/embed/Qei7oGiEIxY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Method](docs/figures/image.png)](https://youtu.be/Qei7oGiEIxY)
 
 ## Learning High-Level Policies for Model Predictive Control
 
