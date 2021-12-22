@@ -8,28 +8,22 @@ Policy Search and Model Predictive Control (MPC) are two different paradigms for
 
 ### Publication
 
-If you use this code in a publication, please cite the following paper:
+If you use this code in a publication, please cite the following papers:
 Y. Song and D. Scaramuzza,
-"**Policy Search for Model Predictive Control with Application to Agile Drone Flight**," [[PDF](http://rpg.ifi.uzh.ch/docs/TRO21_Yunlong.pdf)]
-
+"**Policy Search for Model Predictive Control with Application to Agile Drone Flight**," [[PDF](http://rpg.ifi.uzh.ch/docs/TRO21_Yunlong.pdf)][[Video](https://youtu.be/Qei7oGiEIxY)]
 ```
-@article{song2021policy,
-  title={Policy Search for Model Predictive Control with Application to Agile Drone Flight},
-  author={Song, Yunlong and Scaramuzza, Davide},
-  journal={arXiv preprint arXiv:2112.03850},
-  year={2021}
-}
-```
-
-[![Method](docs/figures/image.png)](https://youtu.be/Qei7oGiEIxY)
-
-## Learning High-Level Policies for Model Predictive Control
-
 Y. Song and D. Scaramuzza,
 "**Learning High-Level Policies for Model Predictive Control**,"
 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las Vegas, 2020. [[PDF](http://rpg.ifi.uzh.ch/docs/IROS20_Yunlong.pdf)]
 Please find a list of demonstrations in [here](docs/gifs/README.md).
 
+```
+@article{song2021policy,
+  title={Policy Search for Model Predictive Control with Application to Agile Drone Flight},
+  author={Song, Yunlong and Scaramuzza, Davide},
+  journal={IEEE Transactions on Robotics},
+  year={2021}
+}
 ```
 @inproceedings{song2020learning,
   title={Learning high-level policies for model predictive control},
@@ -39,6 +33,14 @@ Please find a list of demonstrations in [here](docs/gifs/README.md).
   organization={IEEE}
 }
 ```
+
+[![Method](docs/figures/image.png)](https://youtu.be/Qei7oGiEIxY)
+
+## Learning High-Level Policies for Model Predictive Control
+
+
+
+
 
 ### Installation
 
