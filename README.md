@@ -39,6 +39,7 @@ IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las 
 ### Demonstrations
 
 Please find a list of demonstrations in [here](docs/gifs/README.md) and in the video below:
+
 [![Method](docs/figures/image.png)](https://youtu.be/Qei7oGiEIxY)
 
 
