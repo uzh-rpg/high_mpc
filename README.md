@@ -19,12 +19,6 @@ Y. Song and D. Scaramuzza,
   year={2021}
 }
 ```
-@article{song2021TRO,
-  title={Policy Search for Model Predictive Control with Application to Agile Drone Flight},
-  author={Song, Yunlong and Scaramuzza, Davide},
-  journal={IEEE Transactions on Robotics},
-  year={2021}
-}
 ```
 @article{song2020IROS,
   title={Learning High-Level Policies for Model Predictive Control},
