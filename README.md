@@ -19,7 +19,6 @@ Y. Song and D. Scaramuzza,
 "**Learning High-Level Policies for Model Predictive Control**,"
 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las Vegas, 2020.
 [[PDF](http://rpg.ifi.uzh.ch/docs/IROS20_Yunlong.pdf)][[Video](https://youtu.be/2uQcRnp7yI0)]
-Please find a list of demonstrations in [here](docs/gifs/README.md).
 
 ```
 @article{song2021TRO,
@@ -37,7 +36,9 @@ Please find a list of demonstrations in [here](docs/gifs/README.md).
   year={2020}
 }
 ```
+### Demonstrations
 
+Please find a list of demonstrations in [here](docs/gifs/README.md) and in the video below:
 [![Method](docs/figures/image.png)](https://youtu.be/Qei7oGiEIxY)
 
 
