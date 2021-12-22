@@ -19,10 +19,10 @@ Y. Song and D. Scaramuzza,
   year={2021}
 }
 ```
-@inproceedings{song2020IROS,
+@article{song2020IROS,
   title={Learning High-Level Policies for Model Predictive Control},
   author={Song, Yunlong and Scaramuzza, Davide},
-  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  journal={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
   year={2021}
 }
 ```
