@@ -11,11 +11,14 @@ Policy Search and Model Predictive Control (MPC) are two different paradigms for
 If you use this code in a publication, please cite the following papers:
 
 Y. Song and D. Scaramuzza,
-"**Policy Search for Model Predictive Control with Application to Agile Drone Flight**," [[PDF](http://rpg.ifi.uzh.ch/docs/TRO21_Yunlong.pdf)][[Video](https://youtu.be/Qei7oGiEIxY)]
+"**Policy Search for Model Predictive Control with Application to Agile Drone Flight**,"
+IEEE Transaction on Robotics (T-RO), 2021.
+[[PDF](http://rpg.ifi.uzh.ch/docs/TRO21_Yunlong.pdf)][[Video](https://youtu.be/Qei7oGiEIxY)]
 
 Y. Song and D. Scaramuzza,
-**Learning High-Level Policies for Model Predictive Control**,
-IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las Vegas, 2020. [[PDF](http://rpg.ifi.uzh.ch/docs/IROS20_Yunlong.pdf)][[Video](https://youtu.be/2uQcRnp7yI0)]
+"**Learning High-Level Policies for Model Predictive Control**,"
+IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las Vegas, 2020.
+[[PDF](http://rpg.ifi.uzh.ch/docs/IROS20_Yunlong.pdf)][[Video](https://youtu.be/2uQcRnp7yI0)]
 Please find a list of demonstrations in [here](docs/gifs/README.md).
 
 ```
