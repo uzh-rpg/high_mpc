@@ -21,15 +21,17 @@ IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Las 
 [[PDF](http://rpg.ifi.uzh.ch/docs/IROS20_Yunlong.pdf)][[Video](https://youtu.be/2uQcRnp7yI0)]
 
 ```
-@article{song2021TRO,
-  title={Policy Search for Model Predictive Control with Application for Agile Drone Flight},
-  author={Song, Yunlong and Scaramuzza, Davide},
-  journal={IEEE Transaction on Robotics},
-  year={2021}
+@article{song2022policy,  
+  author={Song, Yunlong and Scaramuzza, Davide},  
+  journal={IEEE Transactions on Robotics},   
+  title={Policy Search for Model Predictive Control With Application to Agile Drone Flight},   
+  year={2022}, 
+  pages={1-17},  
+  doi={10.1109/TRO.2022.3141602}
 }
 ```
 ```
-@inProceedings{song2020IROS,
+@inProceedings{song2020learning,
   title={Learning High-Level Policies for Model Predictive Control},
   author={Song, Yunlong and Scaramuzza, Davide},
   booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
